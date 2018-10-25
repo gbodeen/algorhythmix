@@ -1,6 +1,7 @@
 var _ = require('/Users/gabrielbodeen/Documents/project-euler/lodash');
 
-// Euler Problems for practice, from https://projecteuler.net/
+// Euler Problems from https://projecteuler.net/
+// I'm just using these for my own Javascript practice.
 
 // Problem 1
 // If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
@@ -69,6 +70,81 @@ fibonacci.sequence = _.memoize(function(n, a = 0, b = 1) {
 var sum = _.sum;
 
 // problem002(); // -> 4613732
+
+
+// Problem 3 
+// The prime factors of 13195 are 5, 7, 13 and 29.
+// What is the largest prime factor of the number 600851475143 ?
+
+var problem003 = function(n = 600851475143) {
+    console.log('Largest prime factor of ' + n + ' is ' + Math.max(...prime.factors(n)));
+}
+
+var prime = function(n) {
+    return prime.isPrime(n);
+}
+prime.isPrime = _.memoize(function(n) {
+    if (n < 2) return false;
+    for (let i = 2; i <= Math.sqrt(n); i++) {
+        if (prime.isPrime(i) && n % i === 0) return false;
+    }
+    return true;
+});
+prime.sequence = function(n) {
+    return prime.sequence.iterative(n);
+}
+prime.sequence.iterative = _.memoize(function(n) {
+    var seq = [];
+    var i = 2;
+    while (seq.length < n) {
+        if (prime.isPrime(i)) seq.push(i);
+        i++;
+    }
+    return seq;
+});
+prime.sequence.recursive = function(n, s = []) {
+    if (n === 0) {
+        return s;
+    } else {
+        let last = s[s.length - 1] || 1;
+        s.push(prime.nextPrime(last));
+        return prime.sequence.recursive(n - 1, s);
+    }
+};
+prime.nextPrime = function(n) {
+    var i = n;
+    while (true) {
+        i++;
+        if (prime.isPrime(i)) return i;
+    }
+}
+prime.factors = function(n) {
+    return factors(n).filter(x => prime.isPrime(x));
+};
+
+var factors = function(n) {
+    var fs = [1, n];
+    var max = n - 1;
+    for (let i = 2; i < max; i++) {
+        if (n % i === 0) {
+            fs.push(i);
+            if (i !== n) {
+                fs.push(n / i);
+            }
+            max = n / i;
+        }
+        max = n / (i + 1);
+    }
+    return fs.sort((a, b) => a - b);
+}
+
+// problem003(); // 6857
+
+
+
+
+
+
 
 
 
