@@ -1,5 +1,3 @@
-var _ = require('/Users/gabrielbodeen/Documents/project-euler/lodash');
-
 // Euler Problems from https://projecteuler.net/
 // I'm just using these for my own Javascript practice.
 
@@ -15,6 +13,8 @@ var problem001 = function(n) {
         .sum()
         .value();
 }
+
+var _ = require('/Users/gabrielbodeen/Documents/project-euler/lodash');
 
 // console.log(problem001(1000)); // -> 233168
 
@@ -124,7 +124,7 @@ prime.factors = function(n) {
 
 var factors = function(n) {
     var fs = [1, n];
-    var max = n - 1;
+    var max = n;
     for (let i = 2; i < max; i++) {
         if (n % i === 0) {
             fs.push(i);
@@ -132,13 +132,50 @@ var factors = function(n) {
                 fs.push(n / i);
             }
             max = n / i;
+        } else {
+            max = n / (i + 1);
         }
-        max = n / (i + 1);
     }
     return fs.sort((a, b) => a - b);
+};
+
+// problem003(); // -> 6857
+
+
+// Problem 4 
+// A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
+// Find the largest palindrome made from the product of two 3-digit numbers.
+
+var problem004 = function(max = 999) {
+    console.log('P4 answer is ' + largestPairProduct(max, isPalindrome));
 }
 
-// problem003(); // 6857
+var isPalindrome = function(str) {
+    var forward = str.toString();
+    var reverse = forward.split('').reverse().join('');;
+    return forward === reverse;
+};
+
+var largestPairProduct = function(max, filter = alwaysTrue) {
+    var a = max;
+    var b = max;
+    var prod = 0;
+    for (let i = max; i > 0; i--) {
+        if (i * max < prod) break;
+        for (let j = max; j >= i; j--) {
+            if (i * j < prod) break;
+            if (filter(i * j)) {
+                prod = i * j;
+            }
+        }
+    }
+    return prod;
+}
+
+var alwaysTrue = function(x) { return true; }
+
+// problem004() // -> 906609
+
 
 
 
