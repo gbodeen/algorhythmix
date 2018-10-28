@@ -118,9 +118,25 @@ prime.nextPrime = function(n) {
         if (prime.isPrime(i)) return i;
     }
 }
-prime.factors = function(n) {
-    return factors(n).filter(x => prime.isPrime(x));
-};
+// prime.factors = function(n) {
+//     return factors(n).filter(x => prime.isPrime(x));
+// };
+prime.factors = function(n, min = 2, fs = []) {
+    if (n <= 1) {
+        return fs;
+    } else if (n % min === 0) {
+        fs.push(min);
+        return prime.factors(n / min, min, fs);
+    } else {
+        min = prime.nextPrime(min);
+        // if (min > Math.sqrt(n)) {
+            // fs.push(min);
+            // return fs;
+        // } else {
+            return prime.factors(n, min, fs);
+        // }
+    }
+}
 
 var factors = function(n) {
     var fs = [1, n];
@@ -177,10 +193,64 @@ var alwaysTrue = function(x) { return true; }
 // problem004() // -> 906609
 
 
+// Problem 5 
+// 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+// What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+
+var lcm = function(...nums) {
+    // for each argument number, find the prime factorization
+    return nums.map(x => prime.factors(x))
+      // and keep the max power for each prime
+      .reduce(function(maxPrimeFactors, nextPrimeFactors) {
+            let uniques = _.uniq(maxPrimeFactors.concat(nextPrimeFactors));
+            let newMaxes = [];
+            for (let x of uniques) {
+                // count instances of x in each
+                let xInAcc = maxPrimeFactors.filter(y => y === x).length;
+                let xInEle = nextPrimeFactors.filter(y => y === x).length;
+                for (i = 0; i < Math.max(xInAcc, xInEle); i++) {
+                    newMaxes = newMaxes.concat([x]);
+                }
+            }
+            return newMaxes;
+      }, [])
+      // and return their product
+      .reduce((acc, next) => acc * next, 1);
+}
+
+var problem005 = function(n = 20) {
+    console.log(lcm(..._.range(0, n + 1)));
+}
+// problem005(10); // -> 2520
+// problem005(20); // -> 232792560
+    
+var gcd = function(...nums) {
+    // for each argument number, find the factors
+    var allFactors = [];
+    for (let i = 0; i < nums.length; i++) {
+        allFactors.push(factors(nums[i]));
+    }
+    var uniqFactors = _.uniq(_.flatten(allFactors));
+    // find the largest value that's in every list
+    for (let i = 0; i < allFactors.length; i++) {
+        for (let j = 0; j < uniqFactors.length; j++) {
+            if (allFactors[i].indexOf(uniqFactors[j]) < 0) {
+                uniqFactors[j] = -1;
+            }
+        }
+    }
+    return Math.max(...uniqFactors);
+} 
 
 
 
-
+// Problem 6 
+// The sum of the squares of the first ten natural numbers is,
+// 12 + 22 + ... + 102 = 385
+// The square of the sum of the first ten natural numbers is,
+// (1 + 2 + ... + 10)2 = 552 = 3025
+// Hence the difference between the sum of the squares of the first ten natural numbers and the square of the sum is 3025 − 385 = 2640.
+// Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum.
 
 
 
