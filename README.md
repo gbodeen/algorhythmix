@@ -1,1 +1,1 @@
-# project-euler
+# Ah! The quotidian rhythms of algorithmic rehearsal.
