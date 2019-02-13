@@ -3,9 +3,8 @@ Create a function that takes two arrays and determine whether the second array
 is a subset of the first array. Arrays will only contain primitive values.
 */
 function isSubset(array, sub) {
-  return array.map(x => JSON.stringify(x)).join(',').includes(
-    sub.map(x => JSON.stringify(x)).join(',')
-  );
+  return JSON.stringify(array).slice(1, -1).includes(
+    JSON.stringify(sub).slice(1, -1));
 }
 // time complexity: O(N*M) for arrays of length N & M
 // space complexity: O(N+M)
