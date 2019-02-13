@@ -11,6 +11,25 @@ function isSubset(array, sub) {
 // (The JSON.stringify should stay linear since we're 
 //   only dealing with primitives.)
 
+// We could reduce the complexity by iterating
+// through and checking inclusion manually, at the cost
+// of greater code complexity:
+
+function isSubset_1(array, sub) {
+  let j = 0;
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] === sub[j]) {
+      j++;
+    } else if (array[i] === sub[0]) {
+      j = 1;
+    }
+    if (j === sub.length) return true;
+  }
+  return false;
+}
+// time complexity: O(N) for array length N
+// space complexity: O(1)
+
 
 // tests
 console.log(isSubset([2, 3, 3, "a"], [3, 3, 3, "a"])) // false
