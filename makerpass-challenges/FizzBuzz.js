@@ -8,10 +8,10 @@ finally if the number is not divisible by any of those just
 return the value.
 */
 
-function FizzBuzz(value) {
-  return (value % 3 ? '' : 'Fizz') +
-    (value % 5 ? '' : 'Buzz') || value;
-}
+const FizzBuzz = value => (
+  (value % 3 ? '' : 'Fizz') +
+  (value % 5 ? '' : 'Buzz') || value
+)
 // This is the JavaScript version I like.
 // It's clean and idiomatic.
 
