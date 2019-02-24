@@ -6,8 +6,7 @@ Constraint 3: Do not mutate the original nodes by adding any new properties.
 */
 
 var reverseLinkedList = function (linkedList) {
-  let current = linkedList, prev = null;
-  let next;
+  let current = linkedList, prev = null, next;
   while (current) {
     next = current.next;
     current.next = prev;
