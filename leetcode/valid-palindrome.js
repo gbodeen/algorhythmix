@@ -45,5 +45,4 @@ console.log(isPalindrome('My word, Dr. Owym!'));
 console.log(!isPalindrome('xy'));
 console.log(!isPalindrome('hht'));
 console.log(!isPalindrome('thh'));
-console.log(!isPalindrome('thh'));
 console.log(!isPalindrome('A Panamanian mant amnainamanapa'));
