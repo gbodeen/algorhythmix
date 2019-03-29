@@ -21,14 +21,15 @@ Output: []
 
 var findSubstring = function (s, words) {
   let N = words.length, L = words[0] && words[0].length;
-  let dict = {}, results = [];
-  let slice;
+  let dict, slice, results = [];
+
   outerloop:
   for (let i = 0; i <= s.length - N * L; i++) {
-    dict = {};
+    dict = {}; // fully reset all dictionary entries
     for (let word of words) {
-      dict[word] = (dict[word] || 0) + 1;
+      dict[word] = (dict[word] || 0) + 1; // can have duplicate words
     }
+
     for (let j = 0; j < N; j++) {
       slice = s.slice(i + j * L, i + (j + 1) * L);
       if (dict[slice]) {
@@ -37,8 +38,9 @@ var findSubstring = function (s, words) {
         continue outerloop;
       }
     }
-    results.push(i);
+    results.push(i); // the push only occurs if the "continue" statement above never runs
   }
+
   return results;
 };
 // time complexity: O(SN) for s length S and words length N

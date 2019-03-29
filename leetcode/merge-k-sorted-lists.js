@@ -4,6 +4,8 @@ sorted list. Analyze and describe its complexity.
 */
 
 var mergeKLists = function (lists) {
+  if (lists.length === 0) return '';
+  if (lists.every(x => !x)) return '';
   let idx = mindex(lists.map(head => head.val));
   let newlist = lists[idx];
   if (lists[idx].next) {
@@ -47,3 +49,5 @@ foo.next = new ListNode(3);
 foo.next.next = new ListNode(5);
 let bar = new ListNode(0);
 console.log(mergeKLists([foo, bar]));
+
+// [[1,4,5],[1,3,4],[2,6]]
