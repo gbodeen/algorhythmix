@@ -17,22 +17,22 @@
 
 
 class TreeNode:
-    def __init__(self, x):
-        self.val = x
-        self.left = None
-        self.right = None
+  def __init__(self, x):
+    self.val = x
+    self.left = None
+    self.right = None
 
 
 class Solution:
-    def isSymmetric(self, root: TreeNode) -> bool:
-        if not root:
-            return True
+  def isSymmetric(self, root: TreeNode) -> bool:
+    if not root:
+      return True
 
-        def compare(x, y):
-            if not x and not y:
-                return True
-            if not x or not y or (x.val != y.val):
-                return False
-            return compare(x.left, y.right) and compare(x.right, y.left)
+    def compare(x, y):
+      if not x and not y:
+        return True
+      if not x or not y or (x.val != y.val):
+        return False
+      return compare(x.left, y.right) and compare(x.right, y.left)
 
-        return compare(root.left, root.right)
+    return compare(root.left, root.right)
