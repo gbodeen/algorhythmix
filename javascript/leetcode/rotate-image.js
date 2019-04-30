@@ -22,6 +22,16 @@ var rotate = function (matrix) {
   return matrix;
 };
 
+// var rotate = function (matrix) {
+//   matrix.reverse().forEach((row, i) =>
+//     row.forEach((_, j) => {
+//       if (j > i) {
+//         [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]];
+//       }
+//     }))
+//   return matrix;
+// }
+
 
 // tests
 console.log(rotate([]));
