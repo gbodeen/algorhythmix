@@ -22,28 +22,13 @@ public class PE003 {
     return true;
   }
 
-  public List<Integer> primeFactors(int n) {
-    List<Integer> factors = new ArrayList<Integer>();
+  public List<Number> primeFactors(Number N) {
+    List<Number> factors = new ArrayList<Number>();
+    long n = N.longValue();
     if (n < 2) {
       return factors;
     }
     for (int i = 2; i <= Math.sqrt(n); i++) {
-      if (n % i == 0) {
-        factors.add(i);
-        factors.addAll(primeFactors(n / i));
-        return factors;
-      }
-    }
-    factors.add(n);
-    return factors;
-  }
-
-  public List<Long> primeFactors(long n) {
-    List<Long> factors = new ArrayList<Long>();
-    if (n < 2) {
-      return factors;
-    }
-    for (long i = 2; i <= Math.sqrt(n); i++) {
       if (n % i == 0) {
         factors.add(i);
         factors.addAll(primeFactors(n / i));
